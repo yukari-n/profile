@@ -1,0 +1,6 @@
+<FilesMatch "\.(gif|jpe?g|pdf|js|css|map)$">
+SetEnvIf Referer "^http://.*\.phys\.sci\.osaka-u\.ac\.jp" ref_ok
+order deny,allow
+deny from all
+allow from env=ref_ok
+</FilesMatch>

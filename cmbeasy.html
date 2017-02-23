@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noarchive" />
+<meta name="author" content="Yukari Nakanishi" />
+<meta name="description" content="CMBEASYのインストール方法" />
+<title>CMBEASYのインストール方法 | 大阪大学大学院理学研究科 素粒子論研究室</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/earlyaccess/notosansjapanese.css" rel="stylesheet" />
+<link rel="canonical" itemprop="url" href="http://www-het.phys.sci.osaka-u.ac.jp/~nakanishi/cmbeasy.html" />
+<link rel="shortcut icon" href="/favicon.ico" /><link rel="icon" href="/favicon.ico" />
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-54230950-1', 'auto');
+  ga('require', 'displayfeatures');
+  ga('send', 'pageview');
+
+</script>
+</head>
+<body id="top" class="container" itemscope itemtype="http://schema.org/WebPage">
+<header>
+<h1>CMBEASYのインストール方法</h1>
+</header>
+
+<div class="col-md-3">
+<nav class="list-group">
+<a href="#qt" class="list-group-item">Qtのインストール方法</a>
+<a href="#gsl" class="list-group-item">GSLのインストール方法</a>
+<a href="#cfitsio" class="list-group-item">CFITSIOのインストール方法</a>
+<a href="#openmpi" class="list-group-item">Open MPIのインストール方法</a>
+<a href="#cmb" class="list-group-item">CMBEASYのインストール方法</a>
+<a href="./" class="list-group-item list-group-item-info">中西のホームに戻る</a>
+</nav>
+
+<p>　配布中止みたいなので意味が無いような気がしますが途中経過（必要ライブラリのインストール方法）には需要があるようなので。<br />
+　最初に書き終わってから（2014年8月26日）殆ど修正していません。自己責任でお願いします。<br />
+　全てMacでの方法です。</p>
+</div>
+
+<div class="col-md-9">
+
+<section class="panel panel-default">
+<div class="panel-heading"><h2 class="panel-title">下準備</h2></div>
+<div class="panel-body">
+<ul>
+<li><a target="_blank" href="https://itunes.apple.com/us/app/xcode/id497799835">Xcode</a></li>
+<li><a target="_blank" href="http://www.cmake.org/">CMake</a></li>
+<li>MacPorts及びFortran→Open MPIのインストールに必要。<a target="_blank" href="http://d.hatena.ne.jp/A_Harada0531/20130318/1363606117" title="MacでFortranのコンパイラを使用する方法">参考</a></li>
+</ul>
+<p>をインストールしておく。</p>
+</div>
+</section>
+
+<section id="qt" class="panel panel-default">
+<div class="panel-heading"><h2 class="panel-title">Qtのインストール方法</h2></div>
+<div class="panel-body">
+<p>　とりあえず必要なライブラリを入れる所からやります。</p>
+<p>　Qt（キュート）っていうのはどうもCMBEASYのGUIをコンパイルする時に必要らしく、無いとCMBEASYのコンパイル時にエラーが出ます。<br />
+　注意点としてはCMBEASYを使う時には最新版のQtではなく<strong>Qt4</strong>を入れなければいけません。</p>
+<h3>Qt4のインストール</h3>
+<p>　Qtはバンドルファイルが配布されているので簡単です。<a target="_blank" href="http://doc.qt.io/">Qt Documentation</a>へ行き、Qt 4.8から自分のOSに合ったものを選んでダウンロードします<ins>と思ったんだけどサイト改装された時にQt4の配布も終わってしまったみたいだ</ins>。<br />
+　.dmgなのでいつもの様にダブルクリックでマウントして、中にあるインストール用ファイルをダブルクリック。いくつかフォルダ等が存在するかもしれませんが、無視して開いて一番最初に見えるやつをインストールすればOKです。</p>
+<p>　特に設定も無く、インストーラ―の指示に従えばインストールできます。<br />
+　ちゃんとインストール出来ればCMBEASYコンパイル時のQtに関するエラーが消えます。</p>
+<h3>おまけ：Qt5（現時点での最新版）のインストール</h3>
+<p>　此方はQt4と共存させる事が可能です。<br />
+　先程のダウンロードページから最新版の.dmgを落とし、インストールするだけです。<br />
+　インストール先は変更できます。</p>
+<p>　なおアンインストール等はインストールフォルダ内のMaintenanceToolから行えます。</p>
+</div>
+<div class="panel-footer"><a href="#top" title="Go to top"><span class="glyphicon glyphicon-menu-up"></span></a></div>
+</section>
+
+
+<section id="gsl" class="panel panel-default">
+<div class="panel-heading"><h2 class="panel-title">GSLのインストール方法</h2></div>
+<div class="panel-body">
+<p>　<a target="_blank" href="https://gist.github.com/watermouth/4418360" title="Installing GSL in Mac OS X (version 10.7.5 ) の記録">watermouthさんの解説</a>を参考にしました。</p>
+<p>　一部変更点があります。</p>
+<h4>GSLのダウンロード先</h4>
+<p>　公式サイトからリンクされている <a href="http://ftp.jaist.ac.jp/pub/GNU/gsl/" target="_blank">http://ftp.jaist.ac.jp/pub/GNU/gsl/</a> から取ってきましょう。gsl-latest.tar.gzが最新版です。</p>
+<p>　ダウンロードしたら適当な場所に展開して、解凍したフォルダにターミナルで移動します。</p>
+<h4>呪文（コマンド）を唱える</h4>
+<p>　最初の呪文は<kbd>./configure</kbd>。<br />
+　続いて<kbd>make</kbd>。<br />
+　最後に念の為<kbd>make clean</kbd>と唱える。</p>
+<h4>エラーをどうにかする</h4>
+<p>　この辺どうなってるのか私には全然解りませんがやってみたら出来たので手順を追いましょう。<br />
+　以下、一行ずつ、呪文です。</p>
+<pre>
+make clean
+export CFLAGS="-O0 -g"
+./configure --disable-shared --disable-dependency-tracking
+make
+make check &gt; log 2&gt;&1
+CFLAGS = "-Os -g" ./configure
+</pre>
+<h4>インストールする</h4>
+<p>　インストールの為の呪文は<kbd>sudo make install</kbd>。sudoは必要らしいです。</p>
+<p>　<span class="text-success">/usr/local/lib/</span> に拡張子が .a とか .dylib のファイルが出来ていて、 <span class="text-success">/usr/local/include/gsl/</span> にも何かできていればOK。</p>
+<p>　動作確認については、私はサンプルファイルで上手くコンパイルできなかったのだけど、CMBEASYがちゃんと動いてくれたので多分大丈夫。</p>
+</div>
+<div class="panel-footer"><a href="#top" title="Go to top"><span class="glyphicon glyphicon-menu-up"></span></a></div>
+</section>
+
+<section id="cfitsio" class="panel panel-default">
+<div class="panel-heading"><h2 class="panel-title">CFITSIOのインストール方法</h2></div>
+<div class="panel-body">
+<p>　多分一番重要な所なのに入れたのが大分前なので（そして色々やってたらいつの間にかインストールに成功していたようなので）やり方が解らない。とりあえずダウンロードしします…<a target="_blank" href="http://heasarc.gsfc.nasa.gov/fitsio/fitsio.html">公式ページ</a>の<q>The latest version is always available from this link: cfitsio_latest.tar.gz</q>から最新版を入手できます。</p>
+<p>　そのちょっと下に<q>How to build CFITSIO as a Universal Binary on a OS-X Macintosh PC.</q>とMac用の説明書があるので読んでみましょう。二通りのやり方がありますが確か上の方法で頑張った記憶があります。以下は訳。</p>
+<ol>
+<li>ダウンロードした .tar.gz を展開</li>
+<li>解凍して出来た <span class="text-success">cfitsio</span> フォルダにターミナルで移動</li>
+<li>cfitsio-xcodeproj.zip をこのフォルダにコピー（cfitsio-xcodeproj.zip は <a href="ftp://heasarc.gsfc.nasa.gov/FTP/software/fitsio/c/cfitsio-xcodeproj.zip" target="_blank">ftp://heasarc.gsfc.nasa.gov/FTP/software/fitsio/c/cfitsio-xcodeproj.zip</a> からダウンロードできます）</li>
+<li>Xcodeで cfitsio.xcodeproj を開く</li>
+<li>「Targets」を右クリックして<ol>
+	<li>Build PPC</li>
+	<li>Build i386</li>
+	<li>Build Universal</li>
+</ol>を順番にやっていく。クリックだと上手くいかない時は右クリックで</li>
+<li>CFITSIOのrootディレクトリ（さっきのフォルダ）にlibcfitsio.aができていれば完成</li>
+</ol>
+<p>　記憶ではXcodeで「Targets」なるものが何処にあるのか解らず、見付けても上手く操作できずに悩んだような…。今度スクショ取れたらUPします。</p>
+</div>
+<div class="panel-footer"><a href="#top" title="Go to top"><span class="glyphicon glyphicon-menu-up"></span></a></div>
+</section>
+
+<section id="openmpi" class="panel panel-default">
+<div class="panel-heading"><h2 class="panel-title">Open MPIのインストール方法</h2></div>
+<div class="panel-body">
+<p>　<a target="_blank" href="http://www.open-mpi.org/">公式サイト</a>から最新版のソースを落としてきます。</p>
+<p>　ダウンロードしたら適当な場所に解凍して、解凍したフォルダにターミナルで移動。<br />
+　以下の呪文を唱えたらインストールできます。</p>
+<pre>
+./configure --prefix=/usr/local/openmpi CC=gcc CXX=g++ F77=gfortran FC=gfortran
+make
+su
+make install
+</pre>
+<p>　CとC++のコンパイラにはGNUのを指定しています（<a href="#gsl">参照</a>）。<br />
+　<kbd>--prefix=</kbd>の後ろはインストールフォルダの指定ですので別の場所に指定したい方はご自由に。</p>
+<p>　終わったら<kbd>mpic++</kbd>と唱えてみてください。「ファイルが指定されていません」という旨のエラーが出たらインストール成功。<br />
+　<span class="text-warning">command not found</span>と出るようならインストール失敗か、PATHが引けていないので<a target="_blank" href="http://bookers.seesaa.net/article/158575834.html" title="Ubuntu10.04 AMD64にOpen MPIをインストール">参考サイト</a>をご参照ください。PATHの通し方も記載されています。</p>
+<h3>参考サイト</h3>
+<ul>
+<li><a target="_blank" href="http://nowait.seesaa.net/article/182003087.html">OpenMPIのインストール</a></li>
+<li><a target="_blank" href="http://www2.rikkyo.ac.jp/web/tokiwa/menu/bioLib/parallel/mpi/openmpi.html">OpenMPI</a></li>
+</ul>
+</div>
+<div class="panel-footer"><a href="#top" title="Go to top"><span class="glyphicon glyphicon-menu-up"></span></a></div>
+</section>
+
+<section id="cmb" class="panel panel-default">
+<div class="panel-heading"><h2 class="panel-title">CMBEASYのインストール方法</h2></div>
+<div class="panel-body">
+<p>　<ins datetime="2015-05-21T15:07:27+00:00">配布元ページが無くなっているので、配布中止なのかも。</ins></p>
+
+<p>　基本は<a target="_blank" href="http://www.thphys.uni-heidelberg.de/~robbers/cmbeasy/">公式サイト</a>の手順に従えばOK。</p>
+
+<p>　解凍方法・インストール方法共にダウンロードページに記載されています。ビルドするだけでインストールしないなら、解凍場所は工夫したほうが良いかも。<br />
+　とりあえず<strong>以下では<span class="text-success">/usr/local/cmbeasy/</span>に解凍したとして進めます</strong>。途中でパスを設定するところがあれば、各自自分が解凍した先に変更してコマンドを入力してください。</p>
+<h3>解凍と下準備</h3>
+<p>　ダウンロードしたフォルダまでターミナルで移動しておく。<br />
+　この呪文で解凍すると解凍前のファイルは削除されるので注意。</p>
+<pre>
+bunzip2 cmbeasy-4.4.1.tar.bz2
+tar -xvf cmbeasy-4.4.1.tar
+</pre>
+<p>　続いてbuildフォルダを作成します。作成したらターミナルで移動しておきます。</p>
+<pre>
+export CMBEASYDIR=/usr/local/cmbeasy
+mkdir build; cd build
+</pre>
+<p>　1行目は環境変数の設定なので唱えておいてください。</p>
+<h3>コンパイル</h3>
+<p>　CMakeを使ってコンパイルします。設定ファイルは一応入ってはいるのですが、上手くいかないので途中で要設定です。</p>
+<pre>
+cmake /usr/local/cmbeasy
+ccmake .
+</pre>
+<p>　2行目のコマンドで設定を確認できます。ここで必ず以下のように設定すること。</p>
+<a target="_blank" href="img/140821-0002.png"><img src="img/140821-0002.png" alt="CMakeの設定" class="img-thumbnail" /></a>
+<p>　一応矢印キーでカーソルを動かすと下に説明が出ます。大事な所を書き出しておくと、</p>
+<ul>
+<li>BUILD_GUIはONに（enterボタンで切り替え）</li>
+<li>CFITSIO_DIRはインストールしたディレクトリを指定</li>
+<li>GSL_CONFIGもインストールした場所に指定</li>
+<li>MPICXXは実行ファイルのエイリアスを探して指定</li>
+<li>QT_QMAKE_EXECUTABLEはQtのqmakeファイルを指定</li>
+</ul>
+<p>　設定はenterボタンで編集モードに切り替えられます。設定できたら<kbd>c</kbd>を押して出てきた画面の指示に従います（何故か私の場合2回同じ動作をしないとターミナルに戻れなかった）。</p>
+<p>　設定出来たらコンパイルの続き。</p>
+<pre>
+make xcmb cmbeasy
+xcmb $CMBEASYDIR/resources/configuration.cfg
+</pre>
+<p>　1行目のコマンドでstd（名前空間）がどうたらこうたらというエラーが出ると思いますが無視してかまいません。他に「このライブラリが見付かりませんでした」的エラーが出ていたらこの記事の一番初めに戻って必要なものを揃えるべし。</p>
+<p>　2行目のコマンドで「xcmbとかいうコマンド無いから」と言われたらcmbeasyのフォルダまでPATHを通しましょう（<a target="_blank" href="http://motw.mods.jp/Mac/PATH.html" title="PATHを通す方法">参考サイト</a>を参照）。</p>
+<h3>動作確認とインストール</h3>
+<p>　buildフォルダ内に出来たbinディレクトリの中のcmbeasyが実行ファイルなので、叩いてみてCMBEASYが起動すれば成功です。<br />
+　インストールしたい人は管理者権限でいつも通り<kbd>make install</kbd>しましょう。お疲れ様でした。</p>
+<h3>参考サイト</h3>
+<p>　<a target="_blank" href="http://blogs.yahoo.co.jp/igproj_fusion/10394538.html">CMBEASY on Gentoo Linux</a>は一番参考にさせていただきました（必要ライブラリとか）。しかしLinuxへのインストール方法のため、こちらで紹介されている<a href="http://forum.celestialmatters.org/viewtopic.php?t=390" title="Porting the CMBEASY software package" target="_blank">修正パッチ</a>についてはMacへのインストール時には必要ありません。</p>
+</div>
+<div class="panel-footer"><a href="#top" title="Go to top"><span class="glyphicon glyphicon-menu-up"></span></a></div>
+</section>
+
+</div>
+<footer>
+<p><small>&copy; <span itemprop="author">Yukari Nakanishi</span></small><br />
+<small>Framework by <a target="_blank" rel="external" href="http://getbootstrap.com/">Bootstrap</a></small></p>
+</footer>
+</body>
+</html>
